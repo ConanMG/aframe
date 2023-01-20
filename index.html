@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Chess Experience VR</title>
+    <meta name="description" content="Chess Experience VR">
+    <script src="https://aframe.io/releases/1.1.0/aframe.min.js"></script>
+    <script src="https://unpkg.com/super-hands@^3.0.3/dist/super-hands.min.js"></script>
+    <script src="//cdn.rawgit.com/donmccurdy/aframe-physics-system/v4.0.0/dist/aframe-physics-system.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/donmccurdy/aframe-extras@v6.1.1/dist/aframe-extras.misc.min.js"></script>
+    <script>
+      AFRAME.registerComponent("click-listener", {
+        init: function() {
+            this.el.addEventListener("click", function(e) {
+                
+            });
+        }
+      })
+    </script>
+  </head>
+  <body>
+    <a-scene>
+      <a-assets timeout="50000">
+        <a-asset-item
+          id="rookA"
+          src="https://cdn.glitch.global/463682b6-3cc6-48c1-b092-23950bbf4b8e/RookA.glb?v=1674080204080"
+          response-type="arraybuffer"
+        ></a-asset-item>
+        <a-asset-item
+          id="board"
+          src="https://cdn.glitch.global/463682b6-3cc6-48c1-b092-23950bbf4b8e/board.glb?v=1674080254001"
+          response-type="arraybuffer"
+        ></a-asset-item>
+        <a-asset-item
+          id="KnightA"
+          src="https://cdn.glitch.global/463682b6-3cc6-48c1-b092-23950bbf4b8e/KnightA.glb?v=1674089296779"
+          response-type="arraybuffer"
+        ></a-asset-item>
+        <a-asset-item
+          id="KnightB"
+          src="https://cdn.glitch.global/463682b6-3cc6-48c1-b092-23950bbf4b8e/KnightB.glb?v=1674089297261"
+          response-type="arraybuffer"
+        ></a-asset-item>
+        <a-asset-item
+          id="PawnA"
+          src="https://cdn.glitch.global/463682b6-3cc6-48c1-b092-23950bbf4b8e/PawnA.glb?v=1674089297658"
+          response-type="arraybuffer"
+        ></a-asset-item>
+        <a-asset-item
+          id="PawnB"
+          src="https://cdn.glitch.global/463682b6-3cc6-48c1-b092-23950bbf4b8e/PawnB.glb?v=1674089298068"
+          response-type="arraybuffer"
+        ></a-asset-item>
+        <a-asset-item
+          id="QueenA"
+          src="https://cdn.glitch.global/463682b6-3cc6-48c1-b092-23950bbf4b8e/QueenA.glb?v=1674089299094"
+          response-type="arraybuffer"
+        ></a-asset-item>
+        <a-asset-item
+          id="QueenB"
+          src="https://cdn.glitch.global/463682b6-3cc6-48c1-b092-23950bbf4b8e/QueenB.glb?v=1674089299586"
+          response-type="arraybuffer"
+        ></a-asset-item>
+        <a-asset-item
+          id="RookA"
+          src="https://cdn.glitch.global/463682b6-3cc6-48c1-b092-23950bbf4b8e/RookA.glb?v=1674089300124"
+          response-type="arraybuffer"
+        ></a-asset-item>
+        <a-asset-item
+          id="RookB"
+          src="https://cdn.glitch.global/463682b6-3cc6-48c1-b092-23950bbf4b8e/RookB.glb?v=1674089300512"
+          response-type="arraybuffer"
+        ></a-asset-item>
+        <a-asset-item
+          id="BishopA"
+          src="https://cdn.glitch.global/463682b6-3cc6-48c1-b092-23950bbf4b8e/BishopA.glb?v=1674089300925"
+          response-type="arraybuffer"
+        ></a-asset-item>
+        <a-asset-item
+          id="BishopB"
+          src="https://cdn.glitch.global/463682b6-3cc6-48c1-b092-23950bbf4b8e/BishopB.glb?v=1674089301334"
+          response-type="arraybuffer"
+        ></a-asset-item>
+        <a-asset-item
+          id="KingA"
+          src="https://cdn.glitch.global/463682b6-3cc6-48c1-b092-23950bbf4b8e/KingA.glb?v=1674089301726"
+          response-type="arraybuffer"
+        ></a-asset-item>
+        <a-asset-item
+          id="KingB"
+          src="https://cdn.glitch.global/463682b6-3cc6-48c1-b092-23950bbf4b8e/KingB.glb?v=1674089302109"
+          response-type="arraybuffer"
+        ></a-asset-item>
+      </a-assets>
+      
+      <a-entity 
+          movement-controls="fly: true"
+          kinematic-body
+      >
+        <a-entity 
+          look-controls
+          wasd-controls="acceleration: 100"
+          camera
+          position="0 4 0"
+        >
+        <a-entity cursor="rayOrigin:mouse"></a-entity>
+        <a-entity sphere-collider="objects: a-box" super-hands hand-controls="hand: left"></a-entity>
+        <a-entity sphere-collider="objects: a-box" super-hands hand-controls="hand: right"></a-entity>
+        </a-entity>
+      </a-entity>
+      
+      <a-entity
+        static-body
+        scale="1 1 1"
+        position="0 -1.25 -50"
+        rotation="1 0 0"
+        gltf-model="#board"
+      ></a-entity>
+      
+      // Pieces A
+      
+      <a-entity
+        click-listener
+        static-body
+        class="ChessPiece"
+        scale="1 1 1"
+        position="0 1 -50"
+        rotation="0 0 0"
+        gltf-model="#RookA"
+      ></a-entity>
+      <a-entity
+        static-body
+        class="ChessPiece"
+        scale="1 1 1"
+        position="0 1 -50"
+        rotation="0 0 0"
+        gltf-model="#KnightA"
+      ></a-entity>
+      <a-entity
+        static-body
+        class="ChessPiece"
+        scale="1 1 1"
+        position="0 1 -50"
+        rotation="0 0 0"
+        gltf-model="#BishopA"
+      ></a-entity>
+      <a-entity
+        static-body
+        class="ChessPiece"
+        scale="1 1 1"
+        position="0 1 -50"
+        rotation="0 0 0"
+        gltf-model="#QueenA"
+      ></a-entity>
+      <a-entity
+        static-body
+        class="ChessPiece"
+        scale="1 1 1"
+        position="0 1 -50"
+        rotation="0 0 0"
+        gltf-model="#KingA"
+      ></a-entity>
+      <a-entity
+        static-body
+        class="ChessPiece"
+        scale="1 1 1"
+        position="16 1 -50"
+        rotation="0 0 0"
+        gltf-model="#BishopA"
+      ></a-entity>
+      <a-entity
+        static-body
+        class="ChessPiece"
+        scale="1 1 1"
+        position="27 1 -50"
+        rotation="0 0 0"
+        gltf-model="#KnightA"
+      ></a-entity>
+      <a-entity
+        static-body
+        class="ChessPiece"
+        scale="1 1 1"
+        position="38 1 -50"
+        rotation="0 0 0"
+        gltf-model="#RookA"
+      ></a-entity>
+      <a-entity
+        static-body
+        class="ChessPiece"
+        scale="1 1 1"
+        position="0 1 -50"
+        rotation="0 0 0"
+        gltf-model="#PawnA"
+      ></a-entity>
+      <a-entity
+        static-body
+        class="ChessPiece"
+        scale="1 1 1"
+        position="5.5 1 -50"
+        rotation="0 0 0"
+        gltf-model="#PawnA"
+      ></a-entity>
+      <a-entity
+        static-body
+        class="ChessPiece"
+        scale="1 1 1"
+        position="11 1 -50"
+        rotation="0 0 0"
+        gltf-model="#PawnA"
+      ></a-entity>
+      <a-entity
+        static-body
+        class="ChessPiece"
+        scale="1 1 1"
+        position="16.5 1 -50"
+        rotation="0 0 0"
+        gltf-model="#PawnA"
+      ></a-entity>
+      <a-entity
+        static-body
+        class="ChessPiece"
+        scale="1 1 1"
+        position="22 1 -50"
+        rotation="0 0 0"
+        gltf-model="#PawnA"
+      ></a-entity>
+      <a-entity
+        static-body
+        class="ChessPiece"
+        scale="1 1 1"
+        position="27 1 -50"
+        rotation="0 0 0"
+        gltf-model="#PawnA"
+      ></a-entity>
+      <a-entity
+        static-body
+        class="ChessPiece"
+        scale="1 1 1"
+        position="32.5 1 -50"
+        rotation="0 0 0"
+        gltf-model="#PawnA"
+      ></a-entity>
+      <a-entity
+        static-body
+        class="ChessPiece"
+        scale="1 1 1"
+        position="38 1 -50"
+        rotation="0 0 0"
+        gltf-model="#PawnA"
+      ></a-entity>
+      
+      // Pieces B
+      
+      <a-entity
+        static-body
+        class="ChessPiece"
+        scale="1 1 1"
+        position="0 1 -50"
+        rotation="0 0 0"
+        gltf-model="#RookB"
+      ></a-entity>
+      <a-entity
+        static-body
+        class="ChessPiece"
+        scale="1 1 1"
+        position="0 1 -50"
+        rotation="0 0 0"
+        gltf-model="#KnightB"
+      ></a-entity>
+      <a-entity
+        static-body
+        class="ChessPiece"
+        scale="1 1 1"
+        position="0 1 -50"
+        rotation="0 0 0"
+        gltf-model="#BishopB"
+      ></a-entity>
+      <a-entity
+        static-body
+        scale="1 1 1"
+        position="0 1 -50"
+        rotation="0 0 0"
+        gltf-model="#QueenB"
+      ></a-entity>
+      <a-entity
+        static-body
+        class="ChessPiece"
+        scale="1 1 1"
+        position="0 1 -50"
+        rotation="0 0 0"
+        gltf-model="#KingB"
+      ></a-entity>
+      <a-entity
+        static-body
+        class="ChessPiece"
+        scale="1 1 1"
+        position="-16 0 -50"
+        rotation="0 1 0"
+        gltf-model="#BishopB"
+      ></a-entity>
+      <a-entity
+        static-body
+        class="ChessPiece"
+        scale="1 1 1"
+        position="-27 0 -50"
+        rotation="0 1 0"
+        gltf-model="#KnightB"
+      ></a-entity>
+      <a-entity
+        static-body
+        class="ChessPiece"
+        scale="1 1 1"
+        position="-38 0 -50"
+        rotation="0 1 0"
+        gltf-model="#RookB"
+      ></a-entity>
+      <a-entity
+        static-body
+        class="ChessPiece"
+        scale="1 1 1"
+        position="0 1 -50"
+        rotation="0 0 0"
+        gltf-model="#PawnB"
+      ></a-entity>
+      <a-entity
+        static-body
+        class="ChessPiece"
+        scale="1 1 1"
+        position="-5.5 1 -50"
+        rotation="0 0 0"
+        gltf-model="#PawnB"
+      ></a-entity>
+      <a-entity
+        static-body
+        class="ChessPiece"
+        scale="1 1 1"
+        position="-11 1 -50"
+        rotation="0 0 0"
+        gltf-model="#PawnB"
+      ></a-entity>
+      <a-entity
+        static-body
+        class="ChessPiece"
+        scale="1 1 1"
+        position="-16.5 1 -50"
+        rotation="0 0 0"
+        gltf-model="#PawnB"
+      ></a-entity>
+      <a-entity
+        static-body
+        class="ChessPiece"
+        scale="1 1 1"
+        position="-22 1 -50"
+        rotation="0 0 0"
+        gltf-model="#PawnB"
+      ></a-entity>
+      <a-entity
+        static-body
+        class="ChessPiece"
+        scale="1 1 1"
+        position="-27 1 -50"
+        rotation="0 0 0"
+        gltf-model="#PawnB"
+      ></a-entity>
+      <a-entity
+        static-body
+        class="ChessPiece"
+        scale="1 1 1"
+        position="-32.5 1 -50"
+        rotation="0 0 0"
+        gltf-model="#PawnB"
+      ></a-entity>
+      <a-entity
+        static-body
+        class="ChessPiece"
+        scale="1 1 1"
+        position="-38 1 -50"
+        rotation="0 0 0"
+        gltf-model="#PawnB"
+      ></a-entity>
+      
+      <a-plane
+        static-body
+        position="0 0 0"
+        width="1000"
+        height="1000"
+        rotation="270 0 0"
+        src="https://cdn.glitch.global/463682b6-3cc6-48c1-b092-23950bbf4b8e/Gravel.jpg?v=1674081510915"
+        repeat="20 20"
+      ></a-plane>
+      <a-sky
+        src="https://cdn.glitch.me/463682b6-3cc6-48c1-b092-23950bbf4b8e/Sky.png?v=1674081513363"
+      ></a-sky>
+    </a-scene>
+  </body>
+</html>
