@@ -5,14 +5,17 @@
     <meta name="description" content="Chess Experience VR">
     <script src="https://aframe.io/releases/1.1.0/aframe.min.js"></script>
     <script src="//cdn.rawgit.com/donmccurdy/aframe-physics-system/v4.0.0/dist/aframe-physics-system.js"></script>
+    <script src="https://unpkg.com/aframe-animation-component@3.2.1/dist/aframe-animation-component.min.js"></script>
     <script src="js/controller-listener.js"></script>
     <script src="js/player-move.js"></script>
     <script src="js/raycaster-extras.js"></script>
-    <script src="js/physx.release.js"></script>
     <script>
       AFRAME.registerComponent("event-listener", {
         init: function() { 
           var el = this.el;
+          el.addEventListener('mouseenter', function () {
+            el.setAttribute("animation", "property: scale; dir: alternate; dur: 100; to: 0.9 0.9 0.9; loop: true")
+          });
           el.addEventListener('click', function () {
             el.parentNode.removeChild(el);
           });
@@ -24,12 +27,8 @@
           {
               var el = this.el;
 
-              this.el.addEventListener("raycaster-grabbed", function() {
-                el.parentNode.removeChild(el);
-              });
-
               this.el.addEventListener("raycaster-released", function() {
-                el.parentNode.removeChild(el);
+            el.parentNode.removeChild(el);
               });
           },
       });
@@ -120,6 +119,7 @@
         
         <a-camera>
         <a-cursor></a-cursor>
+        dynamic-body
         </a-camera>
     
         <a-entity 
