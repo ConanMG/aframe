@@ -13,3 +13,5 @@ Esta experiencia consiste en un tablero de ajedrez en gisgante con piezas que al
 La ventaja principal de WebXR es la adaptabilidad que tiene a la hora de poder utilizar la aplicación en distintos dispositivos.
 
 He efectuado pruebas en VR, PC y móvil
+
+![alt text](VR.png)
