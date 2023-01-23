@@ -5,43 +5,33 @@
     <meta name="description" content="Chess Experience VR">
     <script src="https://aframe.io/releases/1.1.0/aframe.min.js"></script>
     <script src="//cdn.rawgit.com/donmccurdy/aframe-physics-system/v4.0.0/dist/aframe-physics-system.js"></script>
-    <script src="https://cdn.jsdelivr.net/gh/donmccurdy/aframe-extras@v6.1.1/dist/aframe-extras.misc.min.js"></script>
-    <script src="aframe-environment-component.js"></script>
-    <script src="controller-listener.js"></script>
-    <script src="player-move.js"></script>
-    <script src="raycaster-extras.js"></script>
-    <script src="physx.release.js"></script>
+    <script src="js/controller-listener.js"></script>
+    <script src="js/player-move.js"></script>
+    <script src="js/raycaster-extras.js"></script>
+    <script src="js/physx.release.js"></script>
     <script>
       AFRAME.registerComponent("event-listener", {
         init: function() { 
           var el = this.el;
           el.addEventListener('click', function () {
-                 el.addState("grabbed"); 
+            el.parentNode.removeChild(el);
           });
-            el.addEventListener("mouseleave", function() {
-                 el.removeState("grabbed"); 
-            });
         }
       });
 
-      AFRAME.registerComponent("physics-grab", {
+      AFRAME.registerComponent("vr-event", {
           init: function () 
           {
-              let self = this;
+              var el = this.el;
 
               this.el.addEventListener("raycaster-grabbed", function() {
-                 self.el.addState("grabbed"); 
+                el.parentNode.removeChild(el);
               });
 
               this.el.addEventListener("raycaster-released", function() {
-                 self.el.removeState("grabbed"); 
+                el.parentNode.removeChild(el);
               });
           },
-
-          tick: function()
-          {
-
-          }
       });
     </script>
   </head>
@@ -154,6 +144,7 @@
       
       <a-entity
         static-body
+        vr-event
         scale="1 1 1"
         position="0 -1.25 -50"
         rotation="1 0 0"
@@ -163,264 +154,325 @@
       // Pieces A
       
       <a-entity
-        physx-body="type: kinematic;"
-         raycaster-target="canGrab: true;"
-         physics-grab
-        class="ChessPiece"
-        scale="1 1 1"
-        position="0 1 -50"
-        rotation="0 0 0"
-        gltf-model="#RookA"
+          event-listener
+          vr-event
+          class="ChessPiece"
+          scale="1 1 1"
+          position="0 1 -50"
+          rotation="0 0 0"
+          gltf-model="#RookA"
       ></a-entity>
       <a-entity
-        static-body
-        class="ChessPiece"
-        scale="1 1 1"
-        position="0 1 -50"
-        rotation="0 0 0"
-        gltf-model="#KnightA"
+          event-listener
+          vr-event
+          static-body
+          class="ChessPiece"
+          scale="1 1 1"
+          position="0 1 -50"
+          rotation="0 0 0"
+          gltf-model="#KnightA"
       ></a-entity>
       <a-entity
-        static-body
-        class="ChessPiece"
-        scale="1 1 1"
-        position="0 1 -50"
-        rotation="0 0 0"
-        gltf-model="#BishopA"
+          event-listener
+          vr-event
+          static-body
+          class="ChessPiece"
+          scale="1 1 1"
+          position="0 1 -50"
+          rotation="0 0 0"
+          gltf-model="#BishopA"
       ></a-entity>
       <a-entity
-        static-body
-        class="ChessPiece"
-        scale="1 1 1"
-        position="0 1 -50"
-        rotation="0 0 0"
-        gltf-model="#QueenA"
+          event-listener
+          vr-event
+          static-body
+          class="ChessPiece"
+          scale="1 1 1"
+          position="0 1 -50"
+          rotation="0 0 0"
+          gltf-model="#QueenA"
       ></a-entity>
       <a-entity
-        static-body
-        class="ChessPiece"
-        scale="1 1 1"
-        position="0 1 -50"
-        rotation="0 0 0"
-        gltf-model="#KingA"
+          event-listener
+          vr-event
+          static-body
+          class="ChessPiece"
+          scale="1 1 1"
+          position="0 1 -50"
+          rotation="0 0 0"
+          gltf-model="#KingA"
       ></a-entity>
       <a-entity
-        static-body
-        class="ChessPiece"
-        scale="1 1 1"
-        position="16 1 -50"
-        rotation="0 0 0"
-        gltf-model="#BishopA"
+          event-listener
+          vr-event
+          static-body
+          class="ChessPiece"
+          scale="1 1 1"
+          position="16 1 -50"
+          rotation="0 0 0"
+          gltf-model="#BishopA"
       ></a-entity>
       <a-entity
-        static-body
-        class="ChessPiece"
-        scale="1 1 1"
-        position="27 1 -50"
-        rotation="0 0 0"
-        gltf-model="#KnightA"
+          event-listener
+          vr-event
+          static-body
+          class="ChessPiece"
+          scale="1 1 1"
+          position="27 1 -50"
+          rotation="0 0 0"
+          gltf-model="#KnightA"
       ></a-entity>
       <a-entity
-        static-body
-        class="ChessPiece"
-        scale="1 1 1"
-        position="38 1 -50"
-        rotation="0 0 0"
-        gltf-model="#RookA"
+          event-listener
+          vr-event
+          static-body
+          class="ChessPiece"
+          scale="1 1 1"
+          position="38 1 -50"
+          rotation="0 0 0"
+          gltf-model="#RookA"
       ></a-entity>
       <a-entity
-        static-body
-        class="ChessPiece"
-        scale="1 1 1"
-        position="0 1 -50"
-        rotation="0 0 0"
-        gltf-model="#PawnA"
+          event-listener
+          vr-event
+          static-body
+          class="ChessPiece"
+          scale="1 1 1"
+          position="0 1 -50"
+          rotation="0 0 0"
+          gltf-model="#PawnA"
       ></a-entity>
       <a-entity
-        static-body
-        class="ChessPiece"
-        scale="1 1 1"
-        position="5.5 1 -50"
-        rotation="0 0 0"
-        gltf-model="#PawnA"
+          event-listener
+          vr-event
+          static-body
+          class="ChessPiece"
+          scale="1 1 1"
+          position="5.5 1 -50"
+          rotation="0 0 0"
+          gltf-model="#PawnA"
       ></a-entity>
       <a-entity
-        static-body
-        class="ChessPiece"
-        scale="1 1 1"
-        position="11 1 -50"
-        rotation="0 0 0"
-        gltf-model="#PawnA"
+          event-listener
+          vr-event
+          static-body
+          class="ChessPiece"
+          scale="1 1 1"
+          position="11 1 -50"
+          rotation="0 0 0"
+          gltf-model="#PawnA"
       ></a-entity>
       <a-entity
-        static-body
-        class="ChessPiece"
-        scale="1 1 1"
-        position="16.5 1 -50"
-        rotation="0 0 0"
-        gltf-model="#PawnA"
+          event-listener
+          vr-event
+          static-body
+          class="ChessPiece"
+          scale="1 1 1"
+          position="16.5 1 -50"
+          rotation="0 0 0"
+          gltf-model="#PawnA"
       ></a-entity>
       <a-entity
-        static-body
-        class="ChessPiece"
-        scale="1 1 1"
-        position="22 1 -50"
-        rotation="0 0 0"
-        gltf-model="#PawnA"
+          event-listener
+          vr-event
+          static-body
+          class="ChessPiece"
+          scale="1 1 1"
+          position="22 1 -50"
+          rotation="0 0 0"
+          gltf-model="#PawnA"
       ></a-entity>
       <a-entity
-        static-body
-        class="ChessPiece"
-        scale="1 1 1"
-        position="27 1 -50"
-        rotation="0 0 0"
-        gltf-model="#PawnA"
+          event-listener
+          vr-event
+          static-body
+          class="ChessPiece"
+          scale="1 1 1"
+          position="27 1 -50"
+          rotation="0 0 0"
+          gltf-model="#PawnA"
       ></a-entity>
       <a-entity
-        static-body
-        class="ChessPiece"
-        scale="1 1 1"
-        position="32.5 1 -50"
-        rotation="0 0 0"
-        gltf-model="#PawnA"
+          event-listener
+          vr-event
+          static-body
+          class="ChessPiece"
+          scale="1 1 1"
+          position="32.5 1 -50"
+          rotation="0 0 0"
+          gltf-model="#PawnA"
       ></a-entity>
       <a-entity
-        static-body
-        class="ChessPiece"
-        scale="1 1 1"
-        position="38 1 -50"
-        rotation="0 0 0"
-        gltf-model="#PawnA"
+          event-listener
+          vr-event
+          static-body
+          class="ChessPiece"
+          scale="1 1 1"
+          position="38 1 -50"
+          rotation="0 0 0"
+          gltf-model="#PawnA"
       ></a-entity>
       
       // Pieces B
       
       <a-entity
-        static-body
-        class="ChessPiece"
-        scale="1 1 1"
-        position="0 1 -50"
-        rotation="0 0 0"
-        gltf-model="#RookB"
+          event-listener
+          vr-event
+          static-body
+          class="ChessPiece"
+          scale="1 1 1"
+          position="0 1 -50"
+          rotation="0 0 0"
+          gltf-model="#RookB"
       ></a-entity>
       <a-entity
-        static-body
-        class="ChessPiece"
-        scale="1 1 1"
-        position="0 1 -50"
-        rotation="0 0 0"
-        gltf-model="#KnightB"
+          event-listener
+          vr-event
+          static-body
+          class="ChessPiece"
+          scale="1 1 1"
+          position="0 1 -50"
+          rotation="0 0 0"
+          gltf-model="#KnightB"
       ></a-entity>
       <a-entity
-        static-body
-        class="ChessPiece"
-        scale="1 1 1"
-        position="0 1 -50"
-        rotation="0 0 0"
-        gltf-model="#BishopB"
+          event-listener
+          vr-event
+          static-body
+          class="ChessPiece"
+          scale="1 1 1"
+          position="0 1 -50"
+          rotation="0 0 0"
+          gltf-model="#BishopB"
       ></a-entity>
       <a-entity
-        static-body
-        scale="1 1 1"
-        position="0 1 -50"
-        rotation="0 0 0"
-        gltf-model="#QueenB"
+          event-listener
+          vr-event
+          static-body
+          scale="1 1 1"
+          position="0 1 -50"
+          rotation="0 0 0"
+          gltf-model="#QueenB"
       ></a-entity>
       <a-entity
-        static-body
-        class="ChessPiece"
-        scale="1 1 1"
-        position="0 1 -50"
-        rotation="0 0 0"
-        gltf-model="#KingB"
+          event-listener
+          vr-event
+          static-body
+          class="ChessPiece"
+          scale="1 1 1"
+          position="0 1 -50"
+          rotation="0 0 0"
+          gltf-model="#KingB"
       ></a-entity>
       <a-entity
-        static-body
-        class="ChessPiece"
-        scale="1 1 1"
-        position="-16 0 -50"
-        rotation="0 1 0"
-        gltf-model="#BishopB"
+          event-listener
+          vr-event
+          static-body
+          class="ChessPiece"
+          scale="1 1 1"
+          position="-16 0 -50"
+          rotation="0 1 0"
+          gltf-model="#BishopB"
       ></a-entity>
       <a-entity
-        static-body
-        class="ChessPiece"
-        scale="1 1 1"
-        position="-27 0 -50"
-        rotation="0 1 0"
-        gltf-model="#KnightB"
+          event-listener
+          vr-event
+          static-body
+          class="ChessPiece"
+          scale="1 1 1"
+          position="-27 0 -50"
+          rotation="0 1 0"
+          gltf-model="#KnightB"
       ></a-entity>
       <a-entity
-        static-body
-        class="ChessPiece"
-        scale="1 1 1"
-        position="-38 0 -50"
-        rotation="0 1 0"
-        gltf-model="#RookB"
+          event-listener
+          vr-event
+          static-body
+          class="ChessPiece"
+          scale="1 1 1"
+          position="-38 0 -50"
+          rotation="0 1 0"
+          gltf-model="#RookB"
       ></a-entity>
       <a-entity
-        static-body
-        class="ChessPiece"
-        scale="1 1 1"
-        position="0 1 -50"
-        rotation="0 0 0"
-        gltf-model="#PawnB"
+          event-listener
+          vr-event
+          static-body
+          class="ChessPiece"
+          scale="1 1 1"
+          position="0 1 -50"
+          rotation="0 0 0"
+          gltf-model="#PawnB"
       ></a-entity>
       <a-entity
-        static-body
-        class="ChessPiece"
-        scale="1 1 1"
-        position="-5.5 1 -50"
-        rotation="0 0 0"
-        gltf-model="#PawnB"
+          event-listener
+          vr-event
+          static-body
+          class="ChessPiece"
+          scale="1 1 1"
+          position="-5.5 1 -50"
+          rotation="0 0 0"
+          gltf-model="#PawnB"
       ></a-entity>
       <a-entity
-        static-body
-        class="ChessPiece"
-        scale="1 1 1"
-        position="-11 1 -50"
-        rotation="0 0 0"
-        gltf-model="#PawnB"
+          event-listener
+          vr-event
+          static-body
+          class="ChessPiece"
+          scale="1 1 1"
+          position="-11 1 -50"
+          rotation="0 0 0"
+          gltf-model="#PawnB"
       ></a-entity>
       <a-entity
-        static-body
-        class="ChessPiece"
-        scale="1 1 1"
-        position="-16.5 1 -50"
-        rotation="0 0 0"
-        gltf-model="#PawnB"
+          event-listener
+          vr-event
+          static-body
+          class="ChessPiece"
+          scale="1 1 1"
+          position="-16.5 1 -50"
+          rotation="0 0 0"
+          gltf-model="#PawnB"
       ></a-entity>
       <a-entity
-        static-body
-        class="ChessPiece"
-        scale="1 1 1"
-        position="-22 1 -50"
-        rotation="0 0 0"
-        gltf-model="#PawnB"
+          event-listener
+          vr-event
+          static-body
+          class="ChessPiece"
+          scale="1 1 1"
+          position="-22 1 -50"
+          rotation="0 0 0"
+          gltf-model="#PawnB"
       ></a-entity>
       <a-entity
-        static-body
-        class="ChessPiece"
-        scale="1 1 1"
-        position="-27 1 -50"
-        rotation="0 0 0"
-        gltf-model="#PawnB"
+          event-listener
+          vr-event
+          static-body
+          class="ChessPiece"
+          scale="1 1 1"
+          position="-27 1 -50"
+          rotation="0 0 0"
+          gltf-model="#PawnB"
       ></a-entity>
       <a-entity
-        static-body
-        class="ChessPiece"
-        scale="1 1 1"
-        position="-32.5 1 -50"
-        rotation="0 0 0"
-        gltf-model="#PawnB"
+          event-listener
+          vr-event
+          static-body
+          class="ChessPiece"
+          scale="1 1 1"
+          position="-32.5 1 -50"
+          rotation="0 0 0"
+          gltf-model="#PawnB"
       ></a-entity>
       <a-entity
-        static-body
-        class="ChessPiece"
-        scale="1 1 1"
-        position="-38 1 -50"
-        rotation="0 0 0"
-        gltf-model="#PawnB"
+          event-listener
+          vr-event
+          static-body
+          class="ChessPiece"
+          scale="1 1 1"
+          position="-38 1 -50"
+          rotation="0 0 0"
+          gltf-model="#PawnB"
       ></a-entity>
       
       <a-plane
