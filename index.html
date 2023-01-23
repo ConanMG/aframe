@@ -4,22 +4,51 @@
     <title>Chess Experience VR</title>
     <meta name="description" content="Chess Experience VR">
     <script src="https://aframe.io/releases/1.1.0/aframe.min.js"></script>
-    <script src="https://unpkg.com/super-hands@^3.0.3/dist/super-hands.min.js"></script>
     <script src="//cdn.rawgit.com/donmccurdy/aframe-physics-system/v4.0.0/dist/aframe-physics-system.js"></script>
     <script src="https://cdn.jsdelivr.net/gh/donmccurdy/aframe-extras@v6.1.1/dist/aframe-extras.misc.min.js"></script>
+    <script src="aframe-environment-component.js"></script>
+    <script src="controller-listener.js"></script>
+    <script src="player-move.js"></script>
+    <script src="raycaster-extras.js"></script>
+    <script src="physx.release.js"></script>
     <script>
-      AFRAME.registerComponent("click-listener", {
-        init: function() {
-            this.el.addEventListener("click", function(e) {
-                
+      AFRAME.registerComponent("event-listener", {
+        init: function() { 
+          var el = this.el;
+          el.addEventListener('click', function () {
+                 el.addState("grabbed"); 
+          });
+            el.addEventListener("mouseleave", function() {
+                 el.removeState("grabbed"); 
             });
         }
-      })
+      });
+
+      AFRAME.registerComponent("physics-grab", {
+          init: function () 
+          {
+              let self = this;
+
+              this.el.addEventListener("raycaster-grabbed", function() {
+                 self.el.addState("grabbed"); 
+              });
+
+              this.el.addEventListener("raycaster-released", function() {
+                 self.el.removeState("grabbed"); 
+              });
+          },
+
+          tick: function()
+          {
+
+          }
+      });
     </script>
   </head>
   <body>
     <a-scene>
       <a-assets timeout="50000">
+        
         <a-asset-item
           id="rookA"
           src="https://cdn.glitch.global/463682b6-3cc6-48c1-b092-23950bbf4b8e/RookA.glb?v=1674080204080"
@@ -92,21 +121,36 @@
         ></a-asset-item>
       </a-assets>
       
-      <a-entity 
-          movement-controls="fly: true"
-          kinematic-body
-      >
+
+    <a-entity 
+        id="player" 
+        position="0 0 0" 
+        player-move="controllerListenerId: #controller-data;
+                     navigationMeshClass: environmentGround;">
+        
+        <a-camera>
+        <a-cursor></a-cursor>
+        </a-camera>
+    
         <a-entity 
-          look-controls
-          wasd-controls="acceleration: 100"
-          camera
-          position="0 4 0"
-        >
-        <a-entity cursor="rayOrigin:mouse"></a-entity>
-        <a-entity sphere-collider="objects: a-box" super-hands hand-controls="hand: left"></a-entity>
-        <a-entity sphere-collider="objects: a-box" super-hands hand-controls="hand: right"></a-entity>
+            id="controller-data" 
+            controller-listener="leftControllerId:  #left-controller; 
+                                 rightControllerId: #right-controller;">
         </a-entity>
-      </a-entity>
+
+        <a-entity 
+            id="left-controller"
+            oculus-touch-controls="hand: left">
+        </a-entity>
+
+        <a-entity
+            id="right-controller"
+            oculus-touch-controls="hand: right"
+            raycaster="objects: .raycaster-target, .environmentGround;"
+            raycaster-extras="controllerListenerId: #controller-data; 
+                              beamImageSrc: #gradient; beamLength: 0.5;">
+        </a-entity>
+    </a-entity>
       
       <a-entity
         static-body
@@ -119,8 +163,9 @@
       // Pieces A
       
       <a-entity
-        click-listener
-        static-body
+        physx-body="type: kinematic;"
+         raycaster-target="canGrab: true;"
+         physics-grab
         class="ChessPiece"
         scale="1 1 1"
         position="0 1 -50"
